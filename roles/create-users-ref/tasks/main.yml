@@ -1,7 +1,7 @@
 ---
-#- name: debug variable group_names
-#  debug: var=group_names
-#  when: debug_enabled_default | bool
+- name: debug variable group_names
+  debug: var=group_names
+  when: debug_enabled_default | bool
 
 - name: debug variable users
   debug: var=users
