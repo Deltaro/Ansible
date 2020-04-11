@@ -1,0 +1,50 @@
+---
+
+- name: debug print variable users
+  debug: 
+    msg: "username: {{ username }}, user_state: {{ user_state }}, Key : {{ ssh_key }}, Server : {{ item }}"
+  with_items: 
+    - "{{ servers }}" 
+  when: debug_enabled_default | bool
+
+- name: Add users | create users, shell, home dirs
+  user:
+    name: "{{ username }}"
+    password: "{{ 'passwordsaresecret' | password_hash('sha512') }}"
+    createhome: yes
+    comment: "{{ comment if comment is defined else '' }}"
+    state: present #hard-coded in case user sets state of absent. Choice made to never delete accounts!
+  loop_control:
+    label: "username: {{ username }}, user_state: {{ user_state }}, password: {{ 'True' if password is defined else 'False' }}, servers: {{ item if item is defined else '' }}, group_names: {{ group_names }}" # noqa 204
+
+- name: Add users | Unlock password login (set expiry to -1)
+  user:
+    name: "{{ username }}"
+    expires: -1 #unlock account if locked
+#    command: chage -E -1 {{ username }} #unlock password authentication
+#  register: user_results
+  when: user_state == 'present'
+  loop_control:
+    label: "username: {{ username }}, user_state: {{ user_state }}"
+
+- name: Lock users | Lock password & ssh key authentication
+  user:
+    name: "{{ username }}"
+    expires: 0 #lock account if not locked
+#  command: chage -E 0 {{ username }} #Alternative lock password & ssh key authentication
+#  register: user_results
+  when: user_state == 'lock'
+  loop_control:
+    label: "username: {{ username }}, user_state: {{ user_state }}"
+
+- name: SSH Keys | Add authorized key for ssh key authentication
+  authorized_key:
+    user: "{{ username }}"
+    key: "{{ ssh_key }}"
+    exclusive: "{{ exclusive_ssh_key if exclusive_ssh_key is defined else 'no' }}"
+    state: present
+  when: ssh_key is defined 
+  loop_control:
+    label: "username: {{ username }}, ssh_key: {{ 'True' if ssh_key is defined else 'False' }}, exclusive_ssh_key: {{ exclusive_ssh_key if exclusive_ssh_key is defined else 'False' }}" # noqa 204
+
+
