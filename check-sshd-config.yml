@@ -1,0 +1,7 @@
+---
+- hosts: "{{ servers }}"
+  vars_files:
+    - vars/default
+  become: yes
+  roles:
+    - check-sshd-config
