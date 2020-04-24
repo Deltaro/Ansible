@@ -13,5 +13,3 @@ users:
     user_state: present
     servers:
       - webserver
-      - database
-
