@@ -1,5 +1,5 @@
 ---
-- hosts: "{{inventory}}"
+- hosts: all
   vars_files:
     - vars/lab_users
   become: yes
