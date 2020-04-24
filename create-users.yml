@@ -1,7 +1,7 @@
 ---
 - hosts: '{{inventory}}'
   vars_files:
-    - vars/lab_users.secret
+    - vars/lab_users
   become: yes
   roles:
     - create-users
