@@ -5,5 +5,5 @@
     - vars/lab_users
   become: yes
   roles:
-    - print-some-vars
+#    - print-some-vars
     - create-users-ref
