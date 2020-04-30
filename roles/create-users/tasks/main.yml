@@ -2,7 +2,7 @@
 
 - name: debug print variable users
   debug: 
-    msg: "username: {{ username }}, user_state: {{ user_state }}, Key : {{ ssh_key }}"
+    msg: "username: {{ username }}, user_state: {{ user_state }}, Key : {{ ssh_key }}, Server : {{servers}}"
     
 - name: debug print variable users
   debug: 
