@@ -4,5 +4,5 @@
     - vars/default
   become: yes
   roles:
-    - print-some-vars
+#    - print-some-vars
     - create-users
