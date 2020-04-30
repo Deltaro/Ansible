@@ -7,7 +7,8 @@
 - name: debug print variable users
   debug: 
     msg: "Servers : {{ item }}"
-    with_items: "{{ servers }}"
+    with_items: 
+    - servers 
 #  when: debug_enabled_default | bool
 
 - name: Add users | create users, shell, home dirs
