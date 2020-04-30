@@ -2,7 +2,9 @@
 
 - name: debug print variable users
   debug: 
-    msg: "username: {{ username }}, user_state: {{ user_state }}, Key : {{ ssh_key }}, Servers : {{ servers }}"
+    msg: "username: {{ username }}, user_state: {{ user_state }}, Key : {{ ssh_key }}, Servers : {{ item }}"
+    with_items:
+    - {{ servers }}
 #  when: debug_enabled_default | bool
 
 - name: Add users | create users, shell, home dirs
@@ -12,8 +14,8 @@
     createhome: yes
     comment: "{{ comment if comment is defined else '' }}"
     state: present #hard-coded in case user sets state of absent. Choice made to never delete accounts!
-  when: (user_state == 'present' or user_state == 'lock') and item.1 in group_names
-  with_subelements:
+  when: (user_state == 'present' or user_state == 'lock') and item in group_names
+  with_items:
     - "{{ users }}"
     - servers
   loop_control:
