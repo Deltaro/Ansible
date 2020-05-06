@@ -6,10 +6,10 @@
   when: debug_enabled_default | bool
   
 - name: determine all user
-  - getent:
+  getent:
     database: passwd
     key: {{username}}
-  - debug:
+  debug:
     var: getent_passwd
 
 - name: Lock users | Lock password & ssh key authentication
