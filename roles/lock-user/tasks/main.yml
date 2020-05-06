@@ -8,9 +8,10 @@
 - name: determine all user
   getent:
     database: passwd
-#    key: "{{username}}"
-#  debug:
-#    var: getent_passwd
+    key: "{{username}}"
+
+- debug:
+    var: getent_passwd
 
 - name: Lock users | Lock password & ssh key authentication
   user:
