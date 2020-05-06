@@ -9,8 +9,8 @@
   getent:
     database: passwd
 #    key: "{{username}}"
-  debug:
-    var: getent_passwd
+#  debug:
+#    var: getent_passwd
 
 - name: Lock users | Lock password & ssh key authentication
   user:
