@@ -8,3 +8,5 @@
     mode: '0600'
 #    validate: /usr/sbin/sshd -t -f %s
 #    backup: yes
+  notify:
+    - restart ssh
