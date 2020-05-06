@@ -4,6 +4,13 @@
   debug: 
     msg: "username: {{ username }}"
   when: debug_enabled_default | bool
+  
+- name: determine all user
+  - getent:
+    database: passwd
+    key: {{username}}
+  - debug:
+    var: getent_passwd
 
 - name: Lock users | Lock password & ssh key authentication
   user:
@@ -11,5 +18,6 @@
     expires: 0 #lock account if not locked
 #  command: chage -E 0 {{ username }} #Alternative lock password & ssh key authentication
 #  register: user_results
+  when: username in ansible_facts.getent_passwd
   loop_control:
     label: "username: {{ username }}"
