@@ -4,15 +4,6 @@
     - vars/default
     - vars/lab_users
   become: yes
-#  roles:
+  roles:
 #    - print-some-vars
-#    - create-users-ref
-- name: Update sshd configuration safely, avoid locking yourself out
-  template:
-    src: templates/sshd_config
-    dest: /etc/ssh/sshd_config
-    owner: root
-    group: root
-    mode: '0600'
-    validate: /usr/sbin/sshd -t -f %s
-    backup: yes
+    - create-users-ref
