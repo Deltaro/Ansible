@@ -8,7 +8,7 @@
 - name: determine all user
   getent:
     database: passwd
-    key: "{{username}}"
+#    key: "{{username}}"
   debug:
     var: getent_passwd
 
