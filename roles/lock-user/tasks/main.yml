@@ -8,10 +8,11 @@
 - name: determine all user
   getent:
     database: passwd
-    key: "{{username}}"
+ #   key: "{{username}}" /failed if there is none matching username
 
 - debug:
     var: getent_passwd
+  when: debug_enabled_default | bool 
 
 - name: Lock users | Lock password & ssh key authentication
   user:
