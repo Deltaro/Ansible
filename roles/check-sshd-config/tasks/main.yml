@@ -1,5 +1,5 @@
 ---
-- debug: var=ansible_default_ipv4.interface
+- debug: var=ansible_default_ipv4.adress
 
 - name: Update sshd configuration safely, avoid locking yourself out
   template:
