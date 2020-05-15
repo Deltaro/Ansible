@@ -1,5 +1,5 @@
 ---
 - hosts: "{{ servers }}"
-#  become: yes
+  become: yes
   roles:
     - check-sshd-config
